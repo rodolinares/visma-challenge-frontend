@@ -6,11 +6,15 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "format": "prettier --write \"src/**/*.{html,ts,scss}\""
   },
   "prettier": {
+    "arrowParens": "avoid",
     "printWidth": 100,
+    "semi": false,
     "singleQuote": true,
+    "trailingComma": "none",
     "overrides": [
       {
         "files": "*.html",
@@ -29,6 +33,7 @@
     "@angular/forms": "^21.1.0",
     "@angular/platform-browser": "^21.1.0",
     "@angular/router": "^21.1.0",
+    "ng-zorro-antd": "^21.2.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -37,6 +42,7 @@
     "@angular/cli": "^21.1.4",
     "@angular/compiler-cli": "^21.1.0",
     "jsdom": "^27.1.0",
+    "prettier": "^3.8.3",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
   }
