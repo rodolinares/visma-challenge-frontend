@@ -1,0 +1,59 @@
+<div class="flex justify-between my-4">
+  <span nz-typography class="text-lg font-bold">Organización</span>
+
+  <div class="align-center flex gap-2">
+    <button nz-button nzType="primary">
+      <span nz-icon nzType="plus"></span>
+    </button>
+    <button nz-button>
+      <span nz-icon nzType="upload"></span>
+    </button>
+    <button nz-button>
+      <span nz-icon nzType="download"></span>
+    </button>
+  </div>
+</div>
+
+<nz-tabs>
+  <nz-tab nzTitle="Divisiones">
+    <div class="flex justify-between align-center mb-4">
+      <nz-radio-group nzButtonStyle="solid">
+        <label nz-radio-button nzValue="list">Listado</label>
+        <label nz-radio-button nzValue="tree">Árbol</label>
+      </nz-radio-group>
+
+      <div class="flex justify-between gap-2">
+        <nz-select nzPlaceHolder="Columnas"></nz-select>
+        <nz-input-search>
+          <input nz-input placeholder="Buscar" />
+        </nz-input-search>
+      </div>
+    </div>
+
+    <nz-table #divisionTable [nzData]="divisionData">
+      <thead>
+        <tr>
+          <th>División</th>
+          <th>División Superior</th>
+          <th>Colaboradores</th>
+          <th>Nivel</th>
+          <th>Subdivisiones</th>
+          <th>Embajadores</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of divisionTable.data; track row.id) {
+          <tr>
+            <td>{{ row.name }}</td>
+            <td>{{ row.parent?.name || '-' }}</td>
+            <td>{{ row.collaboratorCount }}</td>
+            <td>{{ row.level }}</td>
+            <td>{{ row.subdivisions.length }}</td>
+            <td>{{ row.ambassadorName || '-' }}</td>
+          </tr>
+        }
+      </tbody>
+    </nz-table>
+  </nz-tab>
+  <nz-tab nzTitle="Colaboradores"></nz-tab>
+</nz-tabs>
