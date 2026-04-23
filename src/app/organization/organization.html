@@ -23,7 +23,11 @@
       </nz-radio-group>
 
       <div class="flex justify-between gap-2">
-        <nz-select nzPlaceHolder="Columnas" [(ngModel)]="selectedColumn" (ngModelChange)="onColumnChange()">
+        <nz-select
+          nzPlaceHolder="Columnas"
+          [(ngModel)]="selectedColumn"
+          (ngModelChange)="onColumnChange()"
+        >
           @for (col of columns; track col) {
             <nz-option [nzLabel]="col.label" [nzValue]="col.value"></nz-option>
           }
@@ -43,8 +47,14 @@
     <nz-table #divisionTable [nzData]="divisionsFiltered" [nzLoading]="loading">
       <thead>
         <tr>
-          @for (col of columns; track col) {
-            <th>{{ col.label }}</th>
+          @for (col of columns; track col.value) {
+            <th
+              [nzSortOrder]="col.sortOrder"
+              [nzSortFn]="col.sortFn"
+              [nzSortDirections]="col.sortDirections"
+            >
+              {{ col.label }}
+            </th>
           }
         </tr>
       </thead>
