@@ -71,7 +71,12 @@
             <td>{{ row.parent?.name || '-' }}</td>
             <td>{{ row.collaboratorCount }}</td>
             <td>{{ row.level }}</td>
-            <td>{{ row.subdivisions.length }}</td>
+            <td>
+              {{ row.subdivisions.length }}
+              <button class="ml-2" nz-button nzType="primary" nzSize="small" nzShape="circle">
+                <nz-icon nzType="plus" />
+              </button>
+            </td>
             <td>{{ row.ambassadorName || '-' }}</td>
           </tr>
         }
