@@ -48,15 +48,16 @@
       #divisionTable
       nzBordered
       [nzData]="divisionsFiltered"
-      [nzFooter]="`Total colaboradores: ${divisionsFiltered.reduce((sum, div) => sum + div.collaboratorCount, 0)}`"
       [nzLoading]="loading"
-      [nzPageSizeOptions]="[10, 20, 50]"
       [nzShowSizeChanger]="true"
     >
       <thead>
         <tr>
           @for (col of columns; track col.value) {
             <th
+              [nzFilters]="col.filterList"
+              [nzFilterFn]="col.filterFn"
+              [nzFilterMultiple]="col.filterMultiple"
               [nzSortOrder]="col.sortOrder"
               [nzSortFn]="col.sortFn"
               [nzSortDirections]="col.sortDirections"
