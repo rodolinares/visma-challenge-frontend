@@ -1,0 +1,59 @@
+@use 'variables' as *;
+
+@mixin generate-utilities($map, $prefix, $property) {
+  @each $key, $value in $map {
+    $class-name: if($prefix == '', '#{$key}', '#{$prefix}-#{$key}');
+
+    .#{$class-name} {
+      #{$property}: $value;
+    }
+  }
+}
+
+@mixin generate-directional-spacing($property, $prefix) {
+  @each $key, $value in $spacing {
+    .#{$prefix}-#{$key} {
+      #{$property}: $value;
+    }
+
+    .#{$prefix}t-#{$key} {
+      #{$property}-top: $value;
+    }
+
+    .#{$prefix}r-#{$key} {
+      #{$property}-right: $value;
+    }
+
+    .#{$prefix}b-#{$key} {
+      #{$property}-bottom: $value;
+    }
+
+    .#{$prefix}l-#{$key} {
+      #{$property}-left: $value;
+    }
+
+    .#{$prefix}x-#{$key} {
+      #{$property}-left: $value;
+      #{$property}-right: $value;
+    }
+
+    .#{$prefix}y-#{$key} {
+      #{$property}-top: $value;
+      #{$property}-bottom: $value;
+    }
+  }
+}
+
+@mixin generate-gap() {
+  @each $key, $value in $spacing {
+    .gap-#{$key} {
+      gap: $value;
+    }
+    .gapx-#{$key} {
+      column-gap: $value;
+    }
+    .gapy-#{$key} {
+      row-gap: $value;
+    }
+  }
+}

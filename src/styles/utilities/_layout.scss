@@ -1,0 +1,6 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+@include generate-utilities($display-values, '', display);
+@include generate-utilities($justify-values, justify, justify-content);
+@include generate-utilities($align-values, align, align-content);
