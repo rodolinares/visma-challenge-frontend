@@ -46,10 +46,12 @@
 
     <nz-table
       #divisionTable
-      [nzData]="divisionsFiltered"
-      [nzLoading]="loading"
       nzBordered
+      [nzData]="divisionsFiltered"
       [nzFooter]="`Total colaboradores: ${divisionsFiltered.reduce((sum, div) => sum + div.collaboratorCount, 0)}`"
+      [nzLoading]="loading"
+      [nzPageSizeOptions]="[10, 20, 50]"
+      [nzShowSizeChanger]="true"
     >
       <thead>
         <tr>
