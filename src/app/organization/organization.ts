@@ -30,10 +30,34 @@ import { DivisionModel } from '../division/models/division.model'
   styleUrl: './organization.scss'
 })
 export class Organization implements OnInit, OnDestroy {
+  columns = [
+    { label: 'División', value: 'name' },
+    { label: 'División Superior', value: 'parent.name' },
+    { label: 'Colaboradores', value: 'collaboratorCount' },
+    { label: 'Nivel', value: 'level' },
+    { label: 'Subdivisiones', value: 'subdivisions.length' },
+    { label: 'Embajadores', value: 'ambassadorName' }
+  ]
+
   divisionData: DivisionModel[] = []
+  divisionsFiltered: DivisionModel[] = []
+  loading = true
+  searchTerm = ''
+  selectedColumn = 'name'
+  viewMode: 'list' | 'tree' = 'list'
 
   private divisionService = inject(Division)
   private subscriptions: Subscription[] = []
+
+  private loadData() {
+    const sub = this.divisionService.listDivisions().subscribe(data => {
+      this.divisionData = data
+      this.divisionsFiltered = data
+      this.loading = false
+    })
+
+    this.subscriptions.push(sub)
+  }
 
   ngOnInit() {
     this.loadData()
@@ -43,12 +67,23 @@ export class Organization implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe())
   }
 
-  private loadData() {
-    const sub = this.divisionService.listDivisions().subscribe(data => {
-      this.divisionData = data
-      console.table(data)
-    })
+  private getValueByPath(obj: any, path: string) {
+    return path.split('.').reduce((acc, part) => {
+      return acc && acc[part] !== undefined ? acc[part] : undefined
+    }, obj)
+  }
 
-    this.subscriptions.push(sub)
+  onSearch() {
+    const term = this.searchTerm.toLowerCase()
+
+    this.divisionsFiltered = this.divisionData.filter(div => {
+      let value = this.getValueByPath(div, this.selectedColumn)
+      return value?.toString().toLowerCase().includes(term)
+    })
+  }
+
+  onColumnChange() {
+    this.searchTerm = ''
+    this.onSearch()
   }
 }

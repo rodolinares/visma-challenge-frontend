@@ -17,28 +17,35 @@
 <nz-tabs>
   <nz-tab nzTitle="Divisiones">
     <div class="flex justify-between align-center mb-4">
-      <nz-radio-group nzButtonStyle="solid">
+      <nz-radio-group nzButtonStyle="solid" [(ngModel)]="viewMode">
         <label nz-radio-button nzValue="list">Listado</label>
         <label nz-radio-button nzValue="tree">Árbol</label>
       </nz-radio-group>
 
       <div class="flex justify-between gap-2">
-        <nz-select nzPlaceHolder="Columnas"></nz-select>
+        <nz-select nzPlaceHolder="Columnas" [(ngModel)]="selectedColumn" (ngModelChange)="onColumnChange()">
+          @for (col of columns; track col) {
+            <nz-option [nzLabel]="col.label" [nzValue]="col.value"></nz-option>
+          }
+        </nz-select>
+
         <nz-input-search>
-          <input nz-input placeholder="Buscar" />
+          <input
+            nz-input
+            placeholder="Buscar"
+            [(ngModel)]="searchTerm"
+            (ngModelChange)="onSearch()"
+          />
         </nz-input-search>
       </div>
     </div>
 
-    <nz-table #divisionTable [nzData]="divisionData">
+    <nz-table #divisionTable [nzData]="divisionsFiltered" [nzLoading]="loading">
       <thead>
         <tr>
-          <th>División</th>
-          <th>División Superior</th>
-          <th>Colaboradores</th>
-          <th>Nivel</th>
-          <th>Subdivisiones</th>
-          <th>Embajadores</th>
+          @for (col of columns; track col) {
+            <th>{{ col.label }}</th>
+          }
         </tr>
       </thead>
       <tbody>
