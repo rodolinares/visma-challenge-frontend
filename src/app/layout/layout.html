@@ -1,0 +1,23 @@
+<nz-layout>
+  <nz-header class="px-4">
+    <div class="logo text-xl font-bold mr-4">Mandü</div>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal">
+      <li nz-menu-item>Dashboard</li>
+      <li nz-menu-item nzSelected>Organización</li>
+      <li nz-submenu nzTitle="Modelos">
+        <ul>
+          <li nz-menu-item>Opción</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Seguimiento">
+        <ul>
+          <li nz-menu-item>Opción</li>
+        </ul>
+      </li>
+    </ul>
+  </nz-header>
+
+  <nz-content class="content px-6">
+    <app-organization></app-organization>
+  </nz-content>
+</nz-layout>

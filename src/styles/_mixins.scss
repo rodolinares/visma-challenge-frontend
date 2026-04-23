@@ -2,7 +2,13 @@
 
 @mixin generate-utilities($map, $prefix, $property) {
   @each $key, $value in $map {
-    $class-name: if($prefix == '', '#{$key}', '#{$prefix}-#{$key}');
+    $class-name: null;
+
+    @if $prefix == '' {
+      $class-name: '#{$key}';
+    } @else {
+      $class-name: '#{$prefix}-#{$key}';
+    }
 
     .#{$class-name} {
       #{$property}: $value;

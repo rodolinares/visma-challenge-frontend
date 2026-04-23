@@ -1,9 +1,11 @@
+@use 'sass:map';
+
 $spacing-step: 0.25rem;
 $spacing-max: 10;
 
 $spacing: ();
 @for $i from 0 through $spacing-max {
-  $spacing: map-merge(
+  $spacing: map.merge(
     $spacing,
     (
       $i: $i * $spacing-step
