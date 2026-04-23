@@ -44,7 +44,13 @@
       </div>
     </div>
 
-    <nz-table #divisionTable [nzData]="divisionsFiltered" [nzLoading]="loading">
+    <nz-table
+      #divisionTable
+      [nzData]="divisionsFiltered"
+      [nzLoading]="loading"
+      nzBordered
+      [nzFooter]="`Total colaboradores: ${divisionsFiltered.reduce((sum, div) => sum + div.collaboratorCount, 0)}`"
+    >
       <thead>
         <tr>
           @for (col of columns; track col.value) {

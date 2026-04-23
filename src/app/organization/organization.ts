@@ -122,10 +122,13 @@ export class Organization implements OnInit, OnDestroy {
   onSearch() {
     const term = this.searchTerm.toLowerCase()
 
-    this.divisionsFiltered = this.divisionData.filter(div => {
+    const filtered = this.divisionData.filter(div => {
       let value = this.getValueByPath(div, this.selectedColumn)
+      if (!value && !term) return true
       return value?.toString().toLowerCase().includes(term)
     })
+
+    this.divisionsFiltered = [...filtered]
   }
 
   onColumnChange() {
